@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +14,19 @@ namespace DevMath
 
         public float Magnitude
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return (float)Math.Sqrt(x * x + y * y);
+            }
         }
 
         public Vector2 Normalized
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                var mag = this.Magnitude;
+                return this / mag;
+            }
         }
 
         public Vector2(float x, float y)
@@ -29,47 +37,52 @@ namespace DevMath
 
         public static float Dot(Vector2 lhs, Vector2 rhs)
         {
-            throw new NotImplementedException();
+            return lhs.x * rhs.x + lhs.y * rhs.y;
         }
 
         public static Vector2 Lerp(Vector2 a, Vector2 b, float t)
         {
-            throw new NotImplementedException();
+            b -= a;
+            b *= t;
+            return a + b;
         }
 
         public static float Angle(Vector2 lhs, Vector2 rhs)
         {
-            throw new NotImplementedException();
+            Vector2 v = lhs - rhs;
+            return -(float)Math.Atan2(v.x, v.y) - (0.5f * (float)Math.PI);
         }
 
         public static Vector2 DirectionFromAngle(float angle)
         {
-            throw new NotImplementedException();
+            var x = (float)Math.Cos(DevMath.DegToRad(angle));
+            var y = (float)Math.Sin(DevMath.DegToRad(angle));
+            return new Vector2(x, y);
         }
 
         public static Vector2 operator +(Vector2 lhs, Vector2 rhs)
         {
-            throw new NotImplementedException();
+            return new Vector2(lhs.x + rhs.x, lhs.y + rhs.y);
         }
 
         public static Vector2 operator -(Vector2 lhs, Vector2 rhs)
         {
-            throw new NotImplementedException();
+            return new Vector2(lhs.x - rhs.x, lhs.y - rhs.y);
         }
 
         public static Vector2 operator -(Vector2 v)
         {
-            throw new NotImplementedException();
+            return new Vector2(-v.x, -v.y);
         }
 
         public static Vector2 operator *(Vector2 lhs, float scalar)
         {
-            throw new NotImplementedException();
+            return new Vector2(lhs.x *= scalar, lhs.y *= scalar);
         }
 
         public static Vector2 operator /(Vector2 lhs, float scalar)
         {
-            throw new NotImplementedException();
+            return new Vector2(lhs.x /= scalar, lhs.y /= scalar);
         }
     }
 }

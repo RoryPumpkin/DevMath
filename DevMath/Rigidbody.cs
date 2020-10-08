@@ -25,7 +25,12 @@ namespace DevMath
 
         public void UpdateVelocityWithForce(Vector2 forceDirection, float forceNewton, float deltaTime)
         {
-            throw new NotImplementedException();
+            float friction = frictionCoefficient * normalForce;
+            float netto = forceNewton - friction;
+            Acceleration = netto / mass;                   //range from 1.076f to -3f with just pressing one axis
+
+
+            Velocity += forceDirection * Acceleration * deltaTime;
         }
     }
 }
