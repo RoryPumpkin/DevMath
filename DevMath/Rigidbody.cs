@@ -26,11 +26,25 @@ namespace DevMath
         public void UpdateVelocityWithForce(Vector2 forceDirection, float forceNewton, float deltaTime)
         {
             float friction = frictionCoefficient * normalForce;
-            float netto = forceNewton - friction;
-            Acceleration = netto / mass;                   //range from 1.076f to -3f with just pressing one axis
 
-
-            Velocity += forceDirection * Acceleration * deltaTime;
+            if (forceDirection.Magnitude == 0)
+            {
+                if (Velocity.Magnitude < 0.01f)
+                {
+                    Acceleration = 0;
+                    Velocity = new Vector2(0, 0);
+                }
+                else
+                {
+                    Acceleration = -friction / mass * deltaTime;
+                    Velocity += Velocity.Normalized * Acceleration;
+                }
+            }
+            else
+            {
+                Acceleration = (forceNewton - friction) / mass * deltaTime;
+                Velocity += forceDirection * Acceleration;
+            }
         }
     }
 }

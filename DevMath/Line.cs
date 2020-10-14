@@ -22,5 +22,25 @@ namespace DevMath
         {
             get; set;
         }
+
+        public bool IntersectsWith(Circle circle)
+        {
+            Vector2 L = circle.Position - Position;
+            float Tca = Vector2.Dot(L, Direction);
+            float d = (float)Math.Sqrt(L.Magnitude * L.Magnitude - Tca * Tca);
+
+            float Thc = (float)Math.Sqrt(circle.Radius * circle.Radius - d * d);
+            float T0 = Tca - Thc;
+
+            if (Length < T0 || T0 < 0) { return false; }
+            if (d < 0 || d > circle.Radius)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

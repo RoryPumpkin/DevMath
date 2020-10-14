@@ -80,6 +80,13 @@ namespace DevMath
             return new Vector2(lhs.x *= scalar, lhs.y *= scalar);
         }
 
+        public static Vector2 operator *(Vector2 lhs, Vector2 rhs)
+        {
+            float x = lhs.x * rhs.x;
+            float y = lhs.y * rhs.y;
+            return new Vector2(x, y);
+        }
+
         public static Vector2 operator /(Vector2 lhs, float scalar)
         {
             return new Vector2(lhs.x /= scalar, lhs.y /= scalar);
